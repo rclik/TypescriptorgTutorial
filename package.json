@@ -1,0 +1,14 @@
+{
+  "name": "ts-org-tutorial-project",
+  "version": "1.0.0",
+  "description": "This project's aim is implemeting tutorial in typescript.org ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rcelik",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  }
+}
