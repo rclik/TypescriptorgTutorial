@@ -1,14 +1,40 @@
-// interface LabeledValue {
-//     label: string;
-// }
-
-// function printLabel( labeledObj : LabeledValue): void {
+// function printLabel(labeledObj: { label: string }) {
 //     console.log(labeledObj.label);
 // }
 
-// let myObj = { label: "my label", size: 10 };
+// let myObj = {label: 'myLabel', size: 10};
+// printLabel(myObj);
 
+interface LabeledValue {
+    label: string;
+}
+
+function printLabel(labeledObj: LabeledValue) {
+    console.log(labeledObj.label);
+}
+
+// let myObj : LabeledValue = { label: 'redLabel'};
+// printLabel(myObj);
+
+// ama bir variable in tipini verdigimizde o interface e birebilr uymalidir.
+
+// let anotherLabelObj : LabeledValue = {label:'new label', size:''};
+// burada size property sini ekleyemeyiz.
+
+// let myObj = { label: "my label", size: 10 };
 // printLabel(myObj); // this will work
+
+// interface SizedLabeledValue extends LabeledValue {
+//     label: string;
+//     size: number;
+// }
+
+interface SizedLabeledValue extends LabeledValue {
+    size: number;
+}
+
+let sizedLabel: SizedLabeledValue = {size: 10, label: 'sized labeled value'};
+printLabel(sizedLabel);
 
 /****************************************************************************************************************************************
  * Optional Properties
@@ -92,33 +118,33 @@
  * 
  * */ 
 
- interface SquareConfig {
-     color ?: string;
-     width ?: number;
- }
+//  interface SquareConfig {
+//      color ?: string;
+//      width ?: number;
+//  }
 
- function createSquare( config: SquareConfig) {
-    return {
-        color: config.color || 'red',
-        width: config.width ? config.width * config.width : 20
-    };
- }
+//  function createSquare( config: SquareConfig) {
+//     return {
+//         color: config.color || 'red',
+//         width: config.width ? config.width * config.width : 20
+//     };
+//  }
 
 //  let mySquare = createSquare({colour: "blue"}); // goruldugu uzere typescript buna el atiyor, bir hata cikariyor.
 // ama bunun hata olmadigini compiler a soylememiz lazim. o zaman assertion yapiyoruz.
 
-let mySquare = createSquare({ colour: 'blue', width: 100} as SquareConfig);
-console.log(mySquare.color);
-console.log(mySquare.width);
+// let mySquare = createSquare({ colour: 'blue', width: 100} as SquareConfig);
+// console.log(mySquare.color);
+// console.log(mySquare.width);
 
 
 // sunu da yapabiliriz, deriz ki bu interface farkli isimlerde ve farkli tiplerde baska property ler de barindirabilir.
 
-interface SquareConfigWithExtraProps {
-    color ?: string;
-    width ?: number;
-    [propName: string]: any;
-}
+// interface SquareConfigWithExtraProps {
+//     color ?: string;
+//     width ?: number;
+//     [propName: string]: any;
+// }
 
 // eger function a gonderecegimiz parametre interface deki hicbir property i karsilazsa ne olur?
 
@@ -134,29 +160,29 @@ interface SquareConfigWithExtraProps {
  * */ 
 
  // icine iki tane string parameter alan bir function property si olan bir interface
- interface SearchFunction{
-     (source: string, subString: string): boolean;
- }
+//  interface SearchFunction{
+//      (source: string, subString: string): boolean;
+//  }
 
- let mySearch : SearchFunction;
+//  let mySearch : SearchFunction;
 
 //  mySearch = ""; // bu hata verir, cunku bunun artik bir type i var, ve bunun function olmasi gerekir
 
 // mySearch = function(){}; // bu da hata verir, cunku parametreleri eksiktir.
 
-mySearch = function(source: string, subString: string): boolean{
-    let result = source.search(subString);
-    return result > -1;
-}
+// mySearch = function(source: string, subString: string): boolean{
+//     let result = source.search(subString);
+//     return result > -1;
+// }
 
 // bu method daki parametre isimlerinin interface dekilerle ayni olmasina gerek yoktur hatta paremeter type larinin belirtilmesine gerek yoktur. Ama parameter type larini verirsek eger, bu type larin interface deki degerlerle uyusmasi gerekir. bunun boyle calismasi ise, eger typescript i kullanmayan bir yer varsa o zaman hersey run time da belli olacak olmasidir. 
 
-let anotherSearch: SearchFunction;
+// let anotherSearch: SearchFunction;
 
-anotherSearch = function (src, sub) {
-  let result = src.search(sub);
-  return result > -1;
-};
+// anotherSearch = function (src, sub) {
+//   let result = src.search(sub);
+//   return result > -1;
+// };
 
 // benzer sekilde return type inin da interface deki function type property ile uyusmasi gerekir. 
 // anotherSearch = function (src, sub) {
