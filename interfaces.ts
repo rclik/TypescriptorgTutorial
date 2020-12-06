@@ -1,6 +1,6 @@
-// function printLabel(labeledObj: { label: string }) {
-//     console.log(labeledObj.label);
-// }
+function printLabel(labeledObj: { label: string }) {
+    console.log(labeledObj.label);
+}
 
 // let myObj = {label: 'myLabel', size: 10};
 // printLabel(myObj);
@@ -9,9 +9,9 @@ interface LabeledValue {
     label: string;
 }
 
-function printLabel(labeledObj: LabeledValue) {
-    console.log(labeledObj.label);
-}
+// function printLabel(labeledObj: LabeledValue) {
+//     console.log(labeledObj.label);
+// }
 
 // let myObj : LabeledValue = { label: 'redLabel'};
 // printLabel(myObj);
