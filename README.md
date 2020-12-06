@@ -427,3 +427,85 @@ function pickCard(x: any): any {
 ```
 
 Yapilan is, function definiton larini yazmak sadece...
+
+## Literal Types
+
+Literal, genis bir class in sub class i olarak dusunebiliriz. Ornegin, bir string variable dusunelim. Typescript e gore bunun type i string olur. Ama biz, varible in alacagi degerlerin belli olmasini isteyelim. O zaman bize string type indan daha kucuk bir class yeterli olur. Biraz enum gibi.
+
+Bunun Union Type larla birlikte kullanilabilir.
+
+### Literal Narrowing
+
+Typescript de variable larin type lari kucultulebilir. 
+
+```typescript
+// We're making a guarantee that this variable
+// helloWorld will never change, by using const.
+
+// So, TypeScript sets the type to be "Hello World" not string
+const helloWorld = "Hello World";
+
+// On the other hand, a let can change, and so the compiler declares it a string
+let hiWorld = "Hi World";
+```
+
+Bu direk olarak compiler in isidir. Bize yansimaz. Ama union type lariyla birlikte bu ozelligi kullanirsak, hos bir kullanim olur;
+
+### String Literal Types
+
+Typescript e ozel bir keyword olan **type** ile string literals types kullanilabilir. Type aliases olarak adlandirilir. Bu daha oncden de bahsettigim gibi, enum gibi  kullanabiliriz.
+
+```typescript
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+
+class UIElement {
+    animate(dx: number, dy: number, easing: Easing) {
+      if (easing === "ease-in") {
+        // ...
+      } else if (easing === "ease-out") {
+      } else if (easing === "ease-in-out") {
+      } else {
+        // It's possible that someone could reach this
+        // by ignoring your types though.
+      }
+    }
+  }
+  
+  let button = new UIElement();
+  button.animate(0, 0, "ease-in");
+  button.animate(0, 0, "uneasy"); // Argument of type '"uneasy"' is not assignable to parameter of type 'Easing'.
+```
+
+Cok acik birsekilde bu sekilde enum vari bir gelistirme yapabiliriz. Ama dikkat etmemiz gereken birsey var, o da run time da hala string olarak farkli degerler verilebilir. Bu durumda, beklenilen deger ler disindaki durumu da ele alamamiz gerekir.
+
+### Numeric Literals
+
+Benzer islemi numeric degerler icin de yapabiliriz;
+
+```typescript
+interface MapConfig {
+  lng: number;
+  lat: number;
+  tileSize: 8 | 16 | 32;
+}
+```
+
+MapConfig interface ini kullanan bir object in tileSize lari 8, 16 veya 32 olabilir.
+
+### Boolean Literals
+
+```typescript
+interface ValidationSuccess {
+  isValid: true;
+  reason: null;
+}
+
+interface ValidationFailure {
+  isValid: false;
+  reason: string;
+}
+
+type ValidationResult = ValidationSuccess | ValidationFailure;
+```
+
+Bu gibi kullanimlarlar ile daha iyi kodlar yazabiliriz.
